@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insta_responsive/pages/custom_circle.dart';
+import 'package:insta_responsive/responsive.dart';
 
 List<String> texts = [
   'Feed',
@@ -41,8 +42,11 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    bool isTablet = Responsive.isTablet(context);
     return Container(
-      width: MediaQuery.of(context).size.width * 0.2,
+      width: !isTablet
+          ? MediaQuery.of(context).size.width * 0.2
+          : MediaQuery.of(context).size.width * 0.3,
       color: Colors.black,
       child: Column(
         children: [
@@ -54,21 +58,31 @@ class _NavBarState extends State<NavBar> {
             ),
             child: Row(
               children: [
-                Container(
-                  height: 40,
-                  width: 50,
-                  child: Image.asset(
-                    'assets/insta_logo.png',
+                Flexible(
+                  child: Container(
+                    height: 40,
+                    width: 50,
+                    child: Image.asset(
+                      'assets/insta_logo.png',
+                    ),
                   ),
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                Container(
-                  height: 30,
-                  width: 150,
-                  child: Image.asset(
-                    'assets/insta_text.jpg',
+                !isTablet
+                    ? SizedBox(
+                        width: 20,
+                      )
+                    : Flexible(
+                        child: SizedBox(
+                          width: 20,
+                        ),
+                      ),
+                Flexible(
+                  child: Container(
+                    height: 30,
+                    width: 150,
+                    child: Image.asset(
+                      'assets/insta_text.jpg',
+                    ),
                   ),
                 ),
               ],

@@ -9,10 +9,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    bool isTablet = Responsive.isTablet(context);
     return Scaffold(
+      drawer: isTablet ? NavBar() : Container(),
       body: Responsive(
         mobile: MobileHome(),
-        tablet: Container(),
+        tablet: Content(),
         desktop: Row(
           children: [
             NavBar(),

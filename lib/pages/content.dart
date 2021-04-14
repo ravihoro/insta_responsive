@@ -2,22 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:insta_responsive/pages/custom_circle.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../mock_data.dart';
+import '../responsive.dart';
 
 class Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    bool isTablet = Responsive.isTablet(context);
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: !isTablet
+          ? MediaQuery.of(context).size.width * 0.8
+          : MediaQuery.of(context).size.width,
       color: Colors.black87,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50.0),
+        padding: !isTablet
+            ? const EdgeInsets.symmetric(horizontal: 50.0)
+            : const EdgeInsets.symmetric(horizontal: 10.0),
         child: Container(
           child: Column(
             children: [
               SizedBox(
                 height: 10,
               ),
-              _header(),
+              _header(isTablet, context),
               SizedBox(
                 height: 15,
               ),
@@ -91,7 +97,7 @@ class Content extends StatelessWidget {
               Expanded(
                 child: StaggeredGridView.countBuilder(
                   itemCount: contentImageUrls.length,
-                  crossAxisCount: 4,
+                  crossAxisCount: isTablet ? 4 : 4,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
                   staggeredTileBuilder: (index) {
@@ -191,9 +197,21 @@ class Content extends StatelessWidget {
     );
   }
 
-  Widget _header() {
+  Widget _header(bool isTablet, BuildContext context) {
     return Row(
       children: [
+        isTablet
+            ? IconButton(
+                icon: Icon(Icons.menu),
+                color: Colors.white,
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              )
+            : Container(),
+        SizedBox(
+          width: 5,
+        ),
         Container(
           alignment: Alignment.center,
           height: 40,
