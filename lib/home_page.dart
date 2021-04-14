@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:insta_responsive/pages/bottom_bar.dart';
 import 'package:insta_responsive/pages/content.dart';
+import 'package:insta_responsive/pages/mobile_home.dart';
 import 'package:insta_responsive/pages/navbar.dart';
 import 'package:insta_responsive/responsive.dart';
 
@@ -9,7 +11,7 @@ class HomePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Responsive(
-        mobile: Container(),
+        mobile: MobileHome(),
         tablet: Container(),
         desktop: Row(
           children: [
@@ -20,6 +22,11 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: Responsive.isMobile(context)
+          ? BottomBar()
+          : Container(
+              height: 0,
+            ),
     );
   }
 }

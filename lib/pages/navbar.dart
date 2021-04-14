@@ -257,7 +257,7 @@ class NavbarItem extends StatelessWidget {
           ),
           Icon(
             icon,
-            color: Colors.white,
+            color: selected ? Colors.white : Colors.grey,
           ),
           SizedBox(
             width: 20,
@@ -265,7 +265,7 @@ class NavbarItem extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-              color: Colors.white,
+              color: selected ? Colors.white : Colors.grey,
             ),
           ),
           Spacer(),
